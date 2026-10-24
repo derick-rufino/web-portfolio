@@ -1,0 +1,220 @@
+/* ==========================================================================
+   tokens.css
+   Gerado a partir das variáveis do Figma:
+   "Portfólio — Primitivas", "Portfólio — Cores" (Escuro/Claro) e
+   "Portfólio — Dimensões" (Desktop/Mobile).
+
+   Regra de nomes: "surface/panel" vira --surface-panel.
+   Medidas em rem (base de 16px). Carregue ANTES do style.css.
+   ========================================================================== */
+
+:root {
+    /* ===== Primitivas (Figma: Primitivas) ===== */
+    --neutral-0: #ffffff;
+    --neutral-25: #f4f6fa;
+    --neutral-50: #f5f5f5;
+    --neutral-100: #e7e7e7;
+    --neutral-150: #e8edf5;
+    --neutral-200: #d5dce7;
+    --neutral-300: #c0c8d4;
+    --neutral-400: #a3aebd;
+    --neutral-450: #8b96aa;
+    --neutral-500: #727272;
+    --neutral-600: #525252;
+    --neutral-700: #444444;
+    --neutral-750: #303844;
+    --neutral-800: #252b34;
+    --neutral-850: #20252d;
+    --neutral-875: #1b1f26;
+    --neutral-900: #111111;
+    --neutral-925: #171b21;
+    --neutral-950: #101216;
+
+    --gray-100: #ececec;
+    --gray-200: #dadada;
+    --gray-300: #c5c5c5;
+    --gray-400: #ababab;
+    --gray-500: #949494;
+    --gray-750: #373737;
+    --gray-800: #2a2a2a;
+    --gray-850: #242424;
+    --gray-900: #1e1e1e;
+    --gray-925: #1a1a1a;
+
+    --blue-100: #b0d1f2;
+    --blue-300: #8aa6ff;
+    --blue-400: #397de0;
+    --blue-500: #2d59e9;
+    --blue-600: #136eb8;
+    --blue-650: #2850d0;
+    --blue-800: #104f86;
+    --blue-925: #172544;
+    --blue-950: #21365e;
+
+    --opacity-duotone: 14%;
+    --opacity-muted: 35%;
+
+    /* ===== Cores, modo Escuro (padrão do site) ===== */
+    --background-canvas: var(--neutral-900);
+    --background-components: var(--gray-925);
+    --surface-panel: var(--gray-900);
+    --surface-tile: var(--gray-850);
+    --surface-subtle: var(--gray-800);
+    --surface-chip: var(--gray-750);
+    --surface-media: var(--gray-750);
+    --surface-active: var(--gray-100);
+    --surface-accent: var(--blue-925);
+    --text-primary: var(--neutral-50);
+    --text-secondary: var(--gray-300);
+    --text-muted: var(--gray-400);
+    --text-on-active: var(--neutral-900);
+    --icon-primary: var(--gray-200);
+    --icon-on-active: var(--neutral-900);
+    --accent-primary: var(--blue-650);
+    --accent-ambient: var(--blue-800);
+    --border-subtle: var(--gray-500);
+
+    /* Cores com transparência (cor + opacidade das primitivas) */
+    --accent-primary-soft: color-mix(in srgb, var(--accent-primary) var(--opacity-duotone), transparent);
+    --icon-primary-soft: color-mix(in srgb, var(--icon-primary) var(--opacity-duotone), transparent);
+    --icon-primary-muted: color-mix(in srgb, var(--icon-primary) var(--opacity-muted), transparent);
+    --accent-primary-muted: color-mix(in srgb, var(--accent-primary) var(--opacity-muted), transparent);
+    --icon-on-active-muted: color-mix(in srgb, var(--icon-on-active) var(--opacity-muted), transparent);
+
+    /* ===== Dimensões, modo Desktop (Figma: Dimensões) ===== */
+    /* Ícones */
+    --icon-small: 0.875rem;
+    --icon-medium: 1.25rem;
+    --icon-large: 1.5rem;
+
+    /* Espaçamentos */
+    --space-0: 0;
+    --space-4: 0.25rem;
+    --space-5: 0.3125rem;
+    --space-6: 0.375rem;
+    --space-7: 0.4375rem;
+    --space-8: 0.5rem;
+    --space-10: 0.625rem;
+    --space-12: 0.75rem;
+    --space-14: 0.875rem;
+    --space-16: 1rem;
+    --space-17: 1.0625rem;
+    --space-18: 1.125rem;
+    --space-20: 1.25rem;
+    --space-21: 1.3125rem;
+    --space-24: 1.5rem;
+    --space-28: 1.75rem;
+    --space-32: 2rem;
+    --space-48: 3rem;
+
+    /* Tipografia */
+    --type-caption-xs: 0.5625rem;
+    --type-caption: 0.6875rem;
+    --type-body-sm: 0.75rem;
+    --type-body: 0.8125rem;
+    --type-body-md: 0.875rem;
+    --type-navigation: 0.9375rem;
+    --type-body-lg: 1rem;
+    --type-subtitle: 1.0625rem;
+    --type-lead: 1.125rem;
+    --type-heading-xs: 1.25rem;
+    --type-heading-sm: 1.3125rem;
+    --type-heading-md: 1.625rem;
+    --type-heading-lg: 1.75rem;
+    --type-heading-xl: 2.5rem;
+    --type-display: 4.5rem;
+
+    /* Raios */
+    --radius-panel: 2.625rem;
+    --radius-card: 1.5rem;
+    --radius-control: 1.25rem;
+    --radius-icon-box: 1rem;
+    --radius-pill: 999px;
+
+    /* Layout */
+    --layout-page-gutter: 3rem;
+    --layout-panel-padding: 3rem;
+    --layout-card-padding: 1.5rem;
+    --layout-tile-padding: 1.75rem;
+    --layout-gap-grid: 0.75rem;
+    --layout-gap-stack: 1.75rem;
+    --layout-container-max: 60rem;
+    --layout-container-min: 20rem;
+    --layout-card-min: 17.5rem;
+    --layout-tile-min: 16.625rem;
+
+    /* Tamanhos */
+    --size-touch-min: 2.75rem;
+    --size-control: 3.5rem;
+    --size-icon-box: 3rem;
+    --size-screen-min-height: 60rem;
+
+    /* Breakpoints (referência: var() não funciona dentro de @media,
+     então use os valores literais 768px e 1024px nas media queries) */
+    --breakpoint-tablet: 768px;
+    --breakpoint-desktop: 1024px;
+}
+
+/* ===== Dimensões, modo Mobile: só o que muda em relação ao Desktop ===== */
+@media (max-width: 767px) {
+    :root {
+        /* Tipografia */
+        --type-caption-xs: 0.6875rem;
+        --type-caption: 0.75rem;
+        --type-body-sm: 0.8125rem;
+        --type-body: 0.875rem;
+        --type-navigation: 0.875rem;
+        --type-subtitle: 1rem;
+        --type-lead: 1.0625rem;
+        --type-heading-xs: 1.125rem;
+        --type-heading-sm: 1.25rem;
+        --type-heading-md: 1.375rem;
+        --type-heading-lg: 1.5rem;
+        --type-heading-xl: 2rem;
+        --type-display: 2.75rem;
+
+        /* Raios */
+        --radius-panel: 1.75rem;
+        --radius-card: 1.25rem;
+        --radius-control: 1.125rem;
+        --radius-icon-box: 0.875rem;
+
+        /* Layout */
+        --layout-page-gutter: 1rem;
+        --layout-panel-padding: 1.25rem;
+        --layout-card-padding: 1rem;
+        --layout-tile-padding: 1.25rem;
+        --layout-gap-stack: 1.25rem;
+        --layout-container-max: 30rem;
+        --layout-tile-min: 9.375rem;
+
+        /* Tamanhos */
+        --size-control: 3rem;
+        --size-icon-box: 2.75rem;
+        --size-screen-min-height: 52.75rem;
+    }
+}
+
+/* ===== Cores, modo Claro (opcional) =====
+   Existe no Figma, mas nenhuma tela foi desenhada nele.
+   Ative com <html data-theme="claro">. */
+:root[data-theme="claro"] {
+    --background-canvas: var(--neutral-100);
+    --background-components: var(--neutral-700);
+    --surface-panel: var(--neutral-0);
+    --surface-tile: var(--neutral-50);
+    --surface-subtle: var(--neutral-50);
+    --surface-chip: var(--neutral-0);
+    --surface-media: var(--neutral-100);
+    --surface-active: var(--neutral-900);
+    --surface-accent: var(--blue-800);
+    --text-primary: var(--neutral-900);
+    --text-secondary: var(--neutral-600);
+    --text-muted: var(--neutral-500);
+    --text-on-active: var(--neutral-0);
+    --icon-primary: var(--neutral-900);
+    --icon-on-active: var(--neutral-0);
+    --accent-primary: var(--blue-500);
+    --accent-ambient: var(--blue-600);
+    --border-subtle: var(--neutral-0);
+}

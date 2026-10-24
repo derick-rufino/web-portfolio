@@ -1,74 +1,73 @@
-const icons = {
-  aboutMe: document.getElementById("about-me-icon"),
-  projects: document.getElementById("projects-icon"),
-  stack: document.getElementById("stack-icon"),
-  contactMe: document.getElementById("contact-me-icon")
+const headerContent = {
+  "about-me": {
+    title: "Sobre mim",
+    subtitle: "Desenvolvedor full-stack, web designer, freelancer e estudante",
+  },
+  stack: {
+    title: "Stack",
+    subtitle:
+      "Tecnologias que uso para construir interfaces e integrar sistemas",
+  },
+  projects: {
+    title: "Projetos",
+    subtitle:
+      "Uma breve seleção de soluções de software e interfaces que desenvolvi",
+  },
+  "contact-me": {
+    title: "Entre em contato",
+    subtitle: "Vamos conversar sobre projetos, oportunidades e colaboração",
+  },
 };
 
-const headerContent = {
-    aboutMe: {
-        title: "Titulo 1",
-        subtitle: "Descrição 1"
-    },
-    stack: {
-        title: "Titulo 2",
-        subtitle: "Descrição 2"
-    },
-    projects: {
-        title: "Titulo 3",
-        subtitle: "Descrição 3"
-    }
-}
+const headerTitle = document.querySelector(".header-title");
+const headerSubtitle = document.querySelector(".header-subtitle");
 
+const navigation = {
+  "about-me-link": "about-me",
+  "stack-link": "stack",
+  "projects-link": "projects",
+  "contact-me-link": "contact-me",
+};
 
-document
-  .getElementById("about-me-link")
-  .addEventListener("click", function (event) {
-    event.preventDefault();
-    showSection("about-me");
-  });
+function showSection(sectionId) {
+  // Atualiza o conteúdo do cabeçalho.
+  const content = headerContent[sectionId];
 
-document
-  .getElementById("projects-link")
-  .addEventListener("click", function (event) {
-    event.preventDefault();
-    showSection("projects");
-  });
-
-document
-  .getElementById("stack-link")
-  .addEventListener("click", function (event) {
-    event.preventDefault();
-    showSection("stack");
-  });
-
-document
-  .getElementById("contact-me-link")
-  .addEventListener("click", function (event) {
-    event.preventDefault();
-    showSection("contact-me");
-  });
-
-  function showSection(sectionId) {
-    const sections = document.querySelectorAll(".section");
-    sections.forEach((section) => {
-      section.style.display = "none";
-    });
-
-    const activeLink = document.querySelector(".section-link.active-view");
-    if (activeLink) {
-      activeLink.classList.remove("active-view");
-    }
-
-    const sectionToShow = document.getElementById(sectionId);
-    if (sectionToShow) {
-      sectionToShow.style.display = "block";
-    }
-
-    const clickedLink = document.getElementById(`${sectionId}-link`);
-    if (clickedLink) {
-      clickedLink.classList.add("active-view");
-    }
+  if (content) {
+    headerTitle.textContent = content.title;
+    headerSubtitle.textContent = content.subtitle;
   }
 
+  // Atualiza o link ativo.
+  document.querySelectorAll(".section-link").forEach((link) => {
+    link.classList.remove("active-view");
+  });
 
+  const activeLink = document.getElementById(`${sectionId}-link`);
+
+  activeLink?.classList.add("active-view");
+
+  // Alterna as seções existentes no documento.
+  document.querySelectorAll(".section").forEach((section) => {
+    section.style.display = "none";
+  });
+
+  const sectionToShow = document.getElementById(sectionId);
+
+  if (sectionToShow) {
+    sectionToShow.style.display = "block";
+  }
+}
+
+// Registra os eventos de navegação.
+Object.entries(navigation).forEach(([linkId, sectionId]) => {
+  const link = document.getElementById(linkId);
+
+  link?.addEventListener("click", (event) => {
+    event.preventDefault();
+    showSection(sectionId);
+  });
+});
+
+// Inicializa a página na seção Sobre mim.
+showSection("about-me");

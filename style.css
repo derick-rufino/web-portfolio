@@ -54,14 +54,16 @@ header h1.header-title {
   color: var(--text-primary, #f5f5f5);
   font-size: var(--type-heading-xl, 2.5rem);
   font-weight: 500;
-  line-height: 110%; /* 2.75rem */
+  line-height: 110%;
+  /* 2.75rem */
 }
 
 header p.header-subtitle {
   color: var(--text-muted, #ababab);
   font-size: var(--type-navigation, 0.9375rem);
   font-weight: 400;
-  line-height: 150%; /* 1.40625rem */
+  line-height: 150%;
+  /* 1.40625rem */
 }
 
 header span.header-icon-wrapper {
@@ -90,7 +92,7 @@ nav {
   scale: 0.8;
 }
 
-nav > ul {
+nav>ul {
   display: flex;
   height: 56px;
   padding: var(--space-10, 10px);
@@ -102,11 +104,11 @@ nav > ul {
   background: var(--surface-panel, #1e1e1e);
 }
 
-ul > li.link-wrapper {
+ul>li.link-wrapper {
   list-style: none;
 }
 
-ul > li > a.section-link {
+ul>li>a.section-link {
   display: flex;
   flex: 1;
   min-height: 36px;
@@ -124,7 +126,7 @@ ul > li > a.section-link {
   color: var(--text-primary, #f5f5f5);
 }
 
-ul > li > a.section-link.active-view {
+ul>li>a.section-link.active-view {
   background: var(--surface-active, #ececec);
   color: var(--text-on-active, #111);
   transition: background 0.2s ease-in-out, color 0.5s ease-in-out;
@@ -132,20 +134,28 @@ ul > li > a.section-link.active-view {
 
 a.contact-me-link {
   display: flex;
-  height: 56px;
-  padding: var(--space-0, 0) var(--space-20, 20px);
+  height: 3.5rem;
+  padding: var(--space-0, 0) var(--space-20, 1.25rem);
   align-items: center;
-  gap: var(--space-8, 8px);
-  corner-shape: squircle(999px);
-  border-radius: 999px;
+  gap: var(--space-12, 0.25rem);
+
+  border-radius: 2.625rem;
   background: var(--surface-accent, #172544);
 
   text-decoration: none;
 
-  color: var(--text-primary, #f5f5f5);
+  color: #f5f5f5;
 }
 
-a > span.section-icon {
+a.contact-me-link>span.contact-icon {
+  display: flex;
+  width: var(--icon-medium, 1.25rem);
+  height: var(--icon-medium, 1.25rem);
+  justify-content: center;
+  align-items: center;
+}
+
+a>span.section-icon {
   display: flex;
   width: var(--icon-medium, 20px);
   height: var(--icon-medium, 20px);
