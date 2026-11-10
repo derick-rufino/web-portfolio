@@ -1,3 +1,17 @@
+/* ==========================================================================
+   style.css — layout e componentes do portfólio.
+   Fonte: Figma "Portfolio" (desktop 1440 × 960 e mobile 390 × 844).
+   Tokens em global.css; ícones em icons.css.
+
+   Faixas de largura:
+     < 768px      mobile  (Figma Mobile — 390px; tokens mobile em global.css)
+     768–1179px   tablet  (layout fluido entre os dois)
+     ≥ 1180px     desktop (Figma Desktop: medidas fixas, Voltar ao lado do painel)
+   1180 = painel (960) + 2 × (Voltar 56 + respiro 20) + folga.
+
+   Sem JavaScript: cada seção é uma página própria.
+   ========================================================================== */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,159 +20,933 @@
 }
 
 body {
-  display: flex;
-  max-width: 100dvw;
   min-height: 100dvh;
-  padding: var(--space-0, 0);
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: var(--space-0, 0);
-
   background: var(--background-canvas, #111);
-  position: relative;
-}
-
-main.bento-wrapper {
-  display: flex;
-  width: 60rem;
-  height: 35rem;
-  padding: var(--space-48, 3rem);
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-0, 0);
-
-  border-radius: 42px;
-  corner-shape: squircle(42px);
-  background: var(--surface-panel, #1e1e1e);
-}
-
-header.bento-header {
-  display: flex;
-  padding: var(--space-0, 0);
-  justify-content: space-between;
-  align-items: center;
-  align-self: stretch;
-}
-
-header div.header-text {
-  display: flex;
-  width: 47.5rem;
-  padding: var(--space-0, 0);
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-8, 0.5rem);
-}
-
-header h1.header-title {
   color: var(--text-primary, #f5f5f5);
-  font-size: var(--type-heading-xl, 2.5rem);
-  font-weight: 500;
-  line-height: 110%;
-  /* 2.75rem */
+  -webkit-font-smoothing: antialiased;
 }
 
-header p.header-subtitle {
-  color: var(--text-muted, #ababab);
-  font-size: var(--type-navigation, 0.9375rem);
-  font-weight: 400;
-  line-height: 150%;
-  /* 1.40625rem */
+/* Scrollbars: só o thumb, fino e discreto (sem track e sem setas). */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background: transparent;
 }
 
-header span.header-icon-wrapper {
-  display: flex;
-  width: 3rem;
-  height: 3rem;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  border-radius: 1rem;
-  corner-shape: squircle(2rem);
-  background: var(--surface-subtle, #2a2a2a);
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
-nav {
-  display: flex;
-  height: 56px;
-  padding: var(--space-0, 0);
-  align-items: center;
-  gap: var(--space-12, 12px);
-
-  position: absolute;
-  bottom: var(--space-48, 3rem);
-
-  scale: 0.8;
+::-webkit-scrollbar-button {
+  display: none;
 }
 
-nav>ul {
-  display: flex;
-  height: 56px;
-  padding: var(--space-10, 10px);
-  align-items: center;
-  gap: var(--space-8, 8px);
-
-  border-radius: 999px;
-  corner-shape: squircle(999px);
-  background: var(--surface-panel, #1e1e1e);
+::-webkit-scrollbar-thumb {
+  border-radius: var(--radius-pill, 999px);
+  background: color-mix(in srgb, var(--text-muted, #ababab) 35%, transparent);
 }
 
-ul>li.link-wrapper {
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--text-muted, #ababab) 60%, transparent);
+}
+
+/* Firefox não tem os pseudo-elementos acima: usa a propriedade padrão. */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--text-muted, #ababab) 35%, transparent) transparent;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
   list-style: none;
 }
 
-ul>li>a.section-link {
+address {
+  font-style: normal;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-primary, #2850d0);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ===== Ícones (Figma: Portfólio / Ícone) =====
+   O SVG (icons.css) vira máscara e a cor vem do tema via currentColor.
+   A camada translúcida do duotone vira transparência da máscara. */
+.icon {
+  --icon-size: var(--icon-large, 1.5rem);
+  display: inline-block;
+  flex-shrink: 0;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  background-color: currentColor;
+  mask-position: center;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+}
+
+.icon-sm { --icon-size: var(--icon-small, 0.875rem); }
+.icon-md { --icon-size: var(--icon-medium, 1.25rem); }
+.icon-lg { --icon-size: var(--icon-large, 1.5rem); }
+
+.tone-accent { color: var(--accent-primary, #2850d0); }
+.tone-neutral { color: var(--icon-primary, #dadada); }
+
+/* Textos auxiliares */
+.text-meta {
+  color: var(--text-muted, #ababab);
+  font-size: var(--type-body, 0.8125rem);
+}
+
+.text-caption {
+  color: var(--text-muted, #ababab);
+  font-size: var(--type-body-sm, 0.75rem);
+}
+
+/* ==========================================================================
+   Início (index.html — Figma: Portfólio bento)
+   ========================================================================== */
+.page-home {
+  display: grid;
+  place-items: center;
+  padding: var(--layout-page-gutter, 3rem);
+}
+
+/* Fluido: as colunas do desktop se desfazem e os tiles entram numa grade. */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--layout-gap-grid, 0.75rem);
+  width: min(100%, var(--layout-container-max, 60rem));
+}
+
+.bento-column,
+.bento-shortcuts {
+  display: contents;
+}
+
+.tile {
+  position: relative;
   display: flex;
-  flex: 1;
-  min-height: 36px;
-  padding: var(--space-4, 4px) 16px;
-  justify-content: center;
-  align-items: center;
-  gap: var(--space-8, 8px);
-
-  border-radius: 999px;
-  corner-shape: squircle(999px);
-  background: var(--surface-subtle, #2a2a2a);
-
-  text-decoration: none;
-
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: var(--radius-panel, 2.625rem);
+  background: var(--surface-tile, #242424);
   color: var(--text-primary, #f5f5f5);
 }
 
-ul>li>a.section-link.active-view {
-  background: var(--surface-active, #ececec);
-  color: var(--text-on-active, #111);
-  transition: background 0.2s ease-in-out, color 0.5s ease-in-out;
+.tile-intro {
+  grid-column: 1 / -1;
+  gap: var(--space-32, 2rem);
+  padding: var(--layout-tile-padding, 1.75rem);
 }
 
-a.contact-me-link {
+.intro-profile,
+.intro-education {
   display: flex;
-  height: 3.5rem;
-  padding: var(--space-0, 0) var(--space-20, 1.25rem);
-  align-items: center;
-  gap: var(--space-12, 0.25rem);
+  flex-direction: column;
+}
 
-  border-radius: 2.625rem;
+.intro-profile {
+  gap: var(--space-10, 0.625rem);
+}
+
+.intro-education {
+  gap: var(--space-4, 0.25rem);
+  font-size: var(--type-caption, 0.6875rem);
+}
+
+.intro-name {
+  font-size: var(--type-display, 4.5rem);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.intro-role {
+  font-size: var(--type-navigation, 0.9375rem);
+}
+
+.intro-summary {
+  max-width: 34rem;
+  color: var(--text-muted, #ababab);
+  font-size: var(--type-body, 0.8125rem);
+  line-height: 1.7;
+}
+
+.intro-institution {
+  font-weight: 500;
+}
+
+.intro-course {
+  color: var(--text-muted, #ababab);
+  line-height: 1.5;
+}
+
+.tile-shortcut {
+  gap: var(--space-28, 1.75rem);
+  min-height: 12rem;
+  padding: var(--layout-tile-padding, 1.75rem);
+}
+
+.tile-hint {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-6, 0.375rem);
+  color: var(--text-muted, #ababab);
+  font-size: var(--type-body-sm, 0.75rem);
+  line-height: 1.6;
+}
+
+.tile-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--type-heading-lg, 1.75rem);
+  font-weight: 600;
+}
+
+.tile-photo {
+  padding: var(--space-24, 1.5rem);
+  min-height: 16rem; /* tablet: foto e Contato dividem a linha */
+}
+
+/* Foto: preenche o tile; altura 0 + flex faz ela seguir a altura da linha
+   (no tablet, igual ao tile Contato) em vez da altura própria da imagem. */
+.photo {
+  display: block;
+  flex: 1 1 auto;
+  width: 100%;
+  height: 0;
+  min-height: 9rem;
+  border-radius: 1.5625rem;
+  background: var(--surface-media, #373737);
+  object-fit: cover;
+  object-position: center 35%; /* mantém o rosto quando o recorte é baixo */
+}
+
+/* Link invisível que cobre o tile Contato; os outros links ficam acima dele. */
+.tile-hit {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.tile-hit:focus-visible {
+  outline-offset: -2px;
+}
+
+.contact-links {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-14, 0.875rem);
+  pointer-events: none; /* cliques no vão entre links vão para o tile */
+}
+
+.contact-links a {
+  pointer-events: auto;
+}
+
+.contact-email {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8, 0.5rem);
+  align-self: flex-start;
+  font-size: var(--type-body-sm, 0.75rem);
+}
+
+.contact-email:hover {
+  text-decoration: underline;
+}
+
+.contact-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8, 0.5rem);
+}
+
+.contact-pill {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6, 0.375rem);
+  padding: var(--space-6, 0.375rem) var(--space-8, 0.5rem);
+  border-radius: var(--radius-pill, 999px);
   background: var(--surface-accent, #172544);
-
-  text-decoration: none;
-
-  color: #f5f5f5;
+  font-size: var(--type-caption, 0.6875rem);
 }
 
-a.contact-me-link>span.contact-icon {
-  display: flex;
-  width: var(--icon-medium, 1.25rem);
-  height: var(--icon-medium, 1.25rem);
-  justify-content: center;
-  align-items: center;
+.tile-contact .tile-heading {
+  pointer-events: none;
 }
 
-a>span.section-icon {
+/* ==========================================================================
+   Páginas de seção (sobre, stack, projetos — Figma: Painel central)
+   ========================================================================== */
+.page-section {
+  --nav-space: calc(var(--size-control, 3.5rem) + 2 * var(--space-24, 1.5rem));
+  display: grid;
+  grid-template-columns:
+    1fr min(var(--layout-container-max, 60rem), 100% - 2 * var(--layout-page-gutter, 3rem))
+    1fr;
+  grid-template-rows: auto 1fr;
+  align-content: start;
+  row-gap: var(--space-20, 1.25rem);
+  padding-block: var(--space-24, 1.5rem) var(--nav-space);
+}
+
+.back-button {
+  grid-column: 2;
+  justify-self: start;
   display: flex;
-  width: var(--icon-medium, 20px);
-  height: var(--icon-medium, 20px);
   justify-content: center;
   align-items: center;
+  width: var(--size-control, 3.5rem);
+  height: var(--size-control, 3.5rem);
+  border-radius: var(--radius-control, 1.25rem);
+  background: var(--surface-panel, #1e1e1e);
+}
+
+.back-button:hover,
+.nav-item:not([aria-current="page"]):hover::before {
+  background: var(--surface-chip, #373737);
+}
+
+.panel {
+  grid-column: 2;
+  align-self: start; /* altura do conteúdo, sem esticar até a nav */
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-stack, 1.75rem);
+  padding: var(--layout-panel-padding, 3rem);
+  border-radius: var(--radius-panel, 2.625rem);
+  background: var(--surface-panel, #1e1e1e);
+}
+
+/* Cabeçalho de seção (Figma: Portfólio / Cabeçalho de seção) */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-12, 0.75rem);
+}
+
+.section-intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8, 0.5rem);
+  max-width: 47.5rem;
+}
+
+.section-title {
+  font-size: var(--type-heading-xl, 2.5rem);
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.section-subtitle {
+  color: var(--text-muted, #ababab);
+  font-size: var(--type-navigation, 0.9375rem);
+  line-height: 1.5;
+}
+
+.section-symbol,
+.project-symbol {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: var(--size-icon-box, 3rem);
+  height: var(--size-icon-box, 3rem);
+  border-radius: var(--radius-icon-box, 1rem);
+}
+
+.section-symbol {
+  background: var(--surface-subtle, #2a2a2a);
+}
+
+/* Cartão (Formação, Certificados, Grupo de tecnologias, Projeto) */
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--layout-card-padding, 1.5rem);
+  border-radius: var(--radius-card, 1.5rem);
+  background: var(--surface-subtle, #2a2a2a);
+}
+
+.card-title {
+  font-size: var(--type-lead, 1.125rem);
+  font-weight: 500;
+}
+
+/* Tag de tecnologia (Figma: Portfólio / Tag de tecnologia) */
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-7, 0.4375rem);
+}
+
+.tag {
+  padding: var(--space-5, 0.3125rem) var(--space-10, 0.625rem);
+  border-radius: var(--radius-pill, 999px);
+  background: var(--surface-chip, #373737);
+  color: var(--text-secondary, #c5c5c5);
+  font-size: var(--type-body-sm, 0.75rem);
+  white-space: nowrap;
+}
+
+/* ===== Sobre mim ===== */
+.page-sobre .panel {
+  gap: var(--space-24, 1.5rem);
+}
+
+.about-track {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24, 1.5rem);
+}
+
+.about-profile,
+.about-experience {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-21, 1.3125rem);
+}
+
+.about-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8, 0.5rem);
+}
+
+.about-identity {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-12, 0.75rem);
+}
+
+.about-name {
+  font-size: var(--type-heading-md, 1.625rem);
+  font-weight: 500;
+}
+
+.about-bio {
+  color: var(--text-secondary, #c5c5c5);
+  font-size: var(--type-navigation, 0.9375rem);
+  line-height: 1.6;
+}
+
+.about-role {
+  font-size: var(--type-subtitle, 1.0625rem);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.about-role-description {
+  color: var(--text-secondary, #c5c5c5);
+  font-size: var(--type-body-md, 0.875rem);
+  line-height: 1.5;
+}
+
+/* Formação e Certificados lado a lado quando cabem, empilhados quando não. */
+.about-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  align-items: start;
+  gap: var(--space-16, 1rem);
+}
+
+.about-list {
+  gap: var(--space-18, 1.125rem);
+}
+
+.about-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-18, 1.125rem);
+}
+
+.about-items-compact {
+  gap: var(--space-12, 0.75rem);
+}
+
+.about-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5, 0.3125rem);
+}
+
+/* Certificados: nome e emissor na mesma linha (quebra se não couber). */
+.about-items-compact .about-item {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  column-gap: var(--space-12, 0.75rem);
+  row-gap: var(--space-4, 0.25rem);
+}
+
+.about-items-compact .about-item-title {
+  font-size: var(--type-body-md, 0.875rem);
+}
+
+.about-item-title {
+  font-size: var(--type-navigation, 0.9375rem);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.about-item-source {
+  color: var(--text-secondary, #c5c5c5);
+}
+
+.about-contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7, 0.4375rem);
+  scroll-margin-top: var(--space-24, 1.5rem);
+}
+
+.about-email {
+  align-self: flex-start;
+  font-size: var(--type-body, 0.8125rem);
+}
+
+.about-socials {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: var(--space-24, 1.5rem);
+  row-gap: var(--space-6, 0.375rem);
+}
+
+.about-contact a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Stack ===== */
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--layout-card-min, 17.5rem)), 1fr));
+  gap: var(--space-16, 1rem);
+}
+
+.stack-group {
+  gap: var(--space-16, 1rem);
+}
+
+.stack-category {
+  display: flex;
+  align-items: center;
+  gap: var(--space-10, 0.625rem);
+  font-size: var(--type-heading-xs, 1.25rem);
+  font-weight: 500;
+}
+
+/* ===== Projetos =====
+   Grade: no desktop, símbolo | nome | descrição e as tags abaixo;
+   no mobile, símbolo + nome na primeira linha e o resto embaixo. */
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-gap-grid, 0.75rem);
+}
+
+.project {
+  display: grid;
+  grid-template-columns: var(--size-icon-box, 3rem) 11.875rem minmax(0, 1fr);
+  grid-template-areas:
+    "symbol name description"
+    "symbol tags tags";
+  align-items: center;
+  column-gap: var(--space-20, 1.25rem);
+  row-gap: var(--space-8, 0.5rem);
+  min-height: 6.75rem;
+  padding: var(--space-17, 1.0625rem) var(--layout-card-padding, 1.5rem);
+}
+
+.project-symbol {
+  grid-area: symbol;
+  background: var(--surface-panel, #1e1e1e);
+}
+
+.project-name {
+  grid-area: name;
+  font-size: var(--type-heading-sm, 1.3125rem);
+  font-weight: 500;
+}
+
+.project-description {
+  grid-area: description;
+  color: var(--text-secondary, #c5c5c5);
+  font-size: var(--type-body-md, 0.875rem);
+  line-height: 1.4;
+}
+
+.project .tag-list {
+  grid-area: tags;
+  gap: var(--space-6, 0.375rem);
+}
+
+/* ===== Navegação inferior (Figma: 24px da borda inferior, centralizada) ===== */
+.bottom-nav {
+  position: fixed;
+  bottom: var(--space-24, 1.5rem);
+  inset-inline: 0;
+  z-index: 10;
+  display: flex;
+  gap: var(--space-12, 0.75rem);
+  width: fit-content;
+  height: var(--size-control, 3.5rem);
+  margin-inline: auto;
+}
+
+.nav-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8, 0.5rem);
+  padding: var(--space-10, 0.625rem);
+  border-radius: var(--radius-pill, 999px);
+  background: var(--surface-panel, #1e1e1e);
+}
+
+.nav-item {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-8, 0.5rem);
+  height: 2.25rem;
+  border-radius: var(--radius-pill, 999px);
+  font-size: var(--type-navigation, 0.9375rem);
+}
+
+/* Fundo de cada item (Figma: "Fundos"). */
+.nav-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--surface-subtle, #2a2a2a);
+}
+
+/* Larguras fixas do componente no Figma. */
+.nav-sobre { width: 8.75rem; }
+.nav-stack { width: 6.5rem; }
+.nav-projetos { width: 7.75rem; }
+
+/* Item da página atual (Figma: "Indicador"). */
+.nav-item[aria-current="page"] {
+  color: var(--text-on-active, #111);
+  font-weight: 500;
+}
+
+.nav-item[aria-current="page"]::before {
+  background: var(--surface-active, #ececec);
+}
+
+.nav-item[aria-current="page"] .icon {
+  color: var(--icon-on-active, #111);
+}
+
+/* Foto de perfil: só no mobile, no lugar do ícone de "Sobre mim". */
+.nav-avatar {
+  display: none;
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--surface-media, #373737);
+  object-fit: cover;
+}
+
+.contact-button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4, 0.25rem);
+  padding: 0 var(--space-20, 1.25rem);
+  border-radius: var(--radius-pill, 999px);
+  background: var(--surface-accent, #172544);
+  font-size: var(--type-body-lg, 1rem);
+}
+
+.contact-button:hover {
+  background: color-mix(in srgb, var(--surface-accent, #172544), var(--text-primary, #f5f5f5) 8%);
+}
+
+/* ==========================================================================
+   Mobile (< 768px — Figma: Mobile 390px)
+   ========================================================================== */
+@media (max-width: 767px) {
+  /* Início: uma coluna, sem a foto (o Figma mobile não tem o tile de foto). */
+  .page-home {
+    padding: var(--space-16, 1rem);
+  }
+
+  .bento {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .tile-photo {
+    display: none;
+  }
+
+  .tile-intro {
+    gap: var(--space-32, 2rem);
+  }
+
+  .tile-shortcut {
+    min-height: 10.5rem;
+  }
+
+  .tile-heading .icon {
+    --icon-size: var(--icon-medium, 1.25rem);
+  }
+
+  .contact-pill {
+    min-height: var(--size-touch-min, 2.75rem);
+    padding-inline: var(--space-12, 0.75rem);
+  }
+
+  /* Seções: Voltar no topo, painel rolando com a página. */
+  .page-section {
+    --nav-space: calc(3.75rem + 2 * var(--space-16, 1rem));
+    padding-top: var(--space-16, 1rem);
+  }
+
+  .section-header {
+    align-items: flex-start;
+  }
+
+  .section-symbol .icon,
+  .project-symbol .icon {
+    --icon-size: var(--icon-medium, 1.25rem);
+  }
+
+  .about-socials {
+    flex-direction: column;
+  }
+
+  .stack-grid {
+    gap: var(--space-12, 0.75rem);
+  }
+
+  .project {
+    grid-template-columns: var(--size-icon-box, 2.75rem) minmax(0, 1fr);
+    grid-template-areas:
+      "symbol name"
+      "description description"
+      "tags tags";
+    column-gap: var(--space-12, 0.75rem);
+    row-gap: var(--space-12, 0.75rem);
+    padding: var(--layout-card-padding, 1rem);
+  }
+
+  /* Navegação mobile (Figma: Portfólio / Navegação mobile): só a seção
+     atual mostra o nome; as outras viram botões redondos de 44px. */
+  .bottom-nav {
+    bottom: var(--space-16, 1rem);
+    height: auto;
+  }
+
+  .nav-group {
+    gap: var(--space-6, 0.375rem);
+    padding: var(--space-8, 0.5rem);
+  }
+
+  .nav-item,
+  .nav-sobre,
+  .nav-stack,
+  .nav-projetos {
+    width: var(--size-touch-min, 2.75rem);
+    height: var(--size-touch-min, 2.75rem);
+  }
+
+  .nav-item[aria-current="page"] {
+    justify-content: flex-start;
+    width: 7.75rem;
+    padding-inline: var(--space-12, 0.75rem);
+  }
+
+  .nav-item:not([aria-current="page"]) .nav-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .nav-sobre .icon {
+    display: none;
+  }
+
+  .nav-avatar {
+    display: block;
+  }
+
+  .nav-sobre[aria-current="page"] {
+    padding-inline-start: var(--space-8, 0.5rem);
+  }
+
+  .contact-button {
+    display: none;
+  }
+}
+
+/* Toque: links de texto pequenos ganham área mínima de 44px. */
+@media (pointer: coarse) {
+  .about-contact a,
+  .contact-email {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--size-touch-min, 2.75rem);
+  }
+
+  .about-contact {
+    gap: 0;
+  }
+}
+
+/* ==========================================================================
+   Desktop (≥ 1180px — Figma: Desktop 1440 × 960, medidas fixas)
+   ========================================================================== */
+@media (min-width: 1180px) {
+  /* Início: duas colunas independentes, como no Figma. */
+  .page-home {
+    min-height: max(100dvh, 48rem);
+  }
+
+  .bento {
+    display: flex;
+    width: var(--layout-container-max, 60rem);
+    height: 35rem;
+  }
+
+  .bento-column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--layout-gap-grid, 0.75rem);
+  }
+
+  .bento-main {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .bento-side {
+    width: 21.625rem;
+    flex-shrink: 0;
+  }
+
+  .bento-shortcuts {
+    display: flex;
+    flex: 1;
+    gap: var(--layout-gap-grid, 0.75rem);
+  }
+
+  .tile-intro {
+    height: 17.625rem;
+    padding: var(--space-32, 2rem);
+  }
+
+  .tile-stack {
+    width: 17.625rem;
+    flex-shrink: 0;
+  }
+
+  .tile-projects {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .tile-hint {
+    align-items: center;
+  }
+
+  .tile-photo {
+    height: 21.625rem;
+    flex-shrink: 0;
+  }
+
+  .tile-contact {
+    flex: 1;
+  }
+
+  /* Seções: painel centralizado, Voltar 20px à esquerda dele. */
+  .page-section {
+    grid-template-columns: 1fr var(--layout-container-max, 60rem) 1fr;
+    grid-template-rows: 1fr;
+    align-content: center;
+    min-height: max(100dvh, 48rem);
+    padding-block: var(--nav-space);
+  }
+
+  .back-button {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+    align-self: center;
+    position: sticky;
+    top: calc(50dvh - var(--size-control, 3.5rem) / 2);
+    margin-right: var(--space-20, 1.25rem);
+  }
+
+  .panel {
+    grid-row: 1;
+    align-self: center;
+    min-height: 35rem;
+  }
+
+  /* Sobre mim: perfil e contato à esquerda, cartões à direita. */
+  .about-track {
+    display: grid;
+    grid-template-columns: 29.5rem minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "profile cards"
+      "contact cards";
+    column-gap: var(--space-32, 2rem);
+  }
+
+  .about-profile { grid-area: profile; }
+
+  .about-cards {
+    grid-area: cards;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .about-contact {
+    grid-area: contact;
+    align-self: end;
+  }
+
+  .stack-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stack-group {
+    min-height: 10.25rem;
+  }
 }
