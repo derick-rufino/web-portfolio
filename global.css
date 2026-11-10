@@ -55,6 +55,7 @@
     --opacity-muted: 35%;
 
     /* ===== Cores, modo Escuro (padrão do site) ===== */
+    color-scheme: dark;
     --background-canvas: var(--neutral-900);
     --background-components: var(--gray-925);
     --surface-panel: var(--gray-900);
@@ -195,26 +196,28 @@
     }
 }
 
-/* ===== Cores, modo Claro (opcional) =====
-   Existe no Figma, mas nenhuma tela foi desenhada nele.
-   Ative com <html data-theme="claro">. */
-:root[data-theme="claro"] {
-    --background-canvas: var(--neutral-100);
-    --background-components: var(--neutral-700);
-    --surface-panel: var(--neutral-0);
-    --surface-tile: var(--neutral-50);
-    --surface-subtle: var(--neutral-50);
-    --surface-chip: var(--neutral-0);
-    --surface-media: var(--neutral-100);
-    --surface-active: var(--neutral-900);
-    --surface-accent: var(--blue-800);
-    --text-primary: var(--neutral-900);
-    --text-secondary: var(--neutral-600);
-    --text-muted: var(--neutral-500);
-    --text-on-active: var(--neutral-0);
-    --icon-primary: var(--neutral-900);
-    --icon-on-active: var(--neutral-0);
-    --accent-primary: var(--blue-500);
-    --accent-ambient: var(--blue-600);
-    --border-subtle: var(--neutral-0);
+/* ===== Cores, modo Claro (Figma: Cores → Claro) =====
+   Segue a preferência do sistema, sem JavaScript. */
+@media (prefers-color-scheme: light) {
+    :root {
+        color-scheme: light;
+        --background-canvas: var(--neutral-100);
+        --background-components: var(--neutral-700);
+        --surface-panel: var(--neutral-0);
+        --surface-tile: var(--neutral-50);
+        --surface-subtle: var(--neutral-50);
+        --surface-chip: var(--neutral-0);
+        --surface-media: var(--neutral-100);
+        --surface-active: var(--neutral-900);
+        --surface-accent: var(--blue-100);
+        --text-primary: var(--neutral-900);
+        --text-secondary: var(--neutral-600);
+        --text-muted: var(--neutral-500);
+        --text-on-active: var(--neutral-0);
+        --icon-primary: var(--neutral-900);
+        --icon-on-active: var(--neutral-0);
+        --accent-primary: var(--blue-500);
+        --accent-ambient: var(--blue-600);
+        --border-subtle: var(--neutral-0);
+    }
 }
