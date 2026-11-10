@@ -1,0 +1,18 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Icone/Rede/Servidor">
+<g id="estilo=preenchido">
+<g id="principal">
+<path d="M4 7C4 5.34315 5.34315 4 7 4H17C18.6569 4 20 5.34315 20 7C20 8.65685 18.6569 10 17 10H7C5.34315 10 4 8.65685 4 7Z" fill="currentColor" fill-opacity="0.2"/>
+<path d="M4 7M20 7M20 7M4 7M7 4V5H17V4V3H7V4ZM20 7M17 10V9H7V10V11H17V10ZM4 7M7 10V9C5.89543 9 5 8.10457 5 7H4H3C3 9.20914 4.79086 11 7 11V10ZM20 7H19C19 8.10457 18.1046 9 17 9V10V11C19.2091 11 21 9.20914 21 7H20ZM17 4V5C18.1046 5 19 5.89543 19 7H20H21C21 4.79086 19.2091 3 17 3V4ZM7 4V3C4.79086 3 3 4.79086 3 7H4H5C5 5.89543 5.89543 5 7 5V4Z" fill="currentColor"/>
+</g>
+<g id="principal_2">
+<path d="M4 17C4 15.3431 5.34315 14 7 14H17C18.6569 14 20 15.3431 20 17C20 18.6569 18.6569 20 17 20H7C5.34315 20 4 18.6569 4 17Z" fill="currentColor" fill-opacity="0.2"/>
+<path d="M4 17M20 17M20 17M4 17M7 14V15H17V14V13H7V14ZM20 17M17 20V19H7V20V21H17V20ZM4 17M7 20V19C5.89543 19 5 18.1046 5 17H4H3C3 19.2091 4.79086 21 7 21V20ZM20 17H19C19 18.1046 18.1046 19 17 19V20V21C19.2091 21 21 19.2091 21 17H20ZM17 14V15C18.1046 15 19 15.8954 19 17H20H21C21 14.7909 19.2091 13 17 13V14ZM7 14V13C4.79086 13 3 14.7909 3 17H4H5C5 15.8954 5.89543 15 7 15V14Z" fill="currentColor"/>
+</g>
+<path id="traco" d="M12 7H16.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="traco_2" d="M12 17H16.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<circle id="ponto" cx="7.5" cy="7" r="1" fill="currentColor"/>
+<circle id="ponto_2" cx="7.5" cy="17" r="1" fill="currentColor"/>
+</g>
+</g>
+</svg>
